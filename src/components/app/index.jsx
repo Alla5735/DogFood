@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import './style.css';
 
 
+
+
 export function App() {
   const [cards, setCards] = useState(dataCard);
   const [searchQuery, setsearchQuery] = useState("");
