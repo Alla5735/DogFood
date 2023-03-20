@@ -5,10 +5,8 @@ import { Header } from "../header";
 import { Sort } from "../sort";
 import { Logo } from "../logo";
 import { Search } from "../search";
-import { dataCard } from "../../data";
-import s from "./styles.module.css";
-import { Button } from '../button';
-// import styled from 'styled-components';
+
+
 import api from '../../utils/api';
 import { useDebounce } from '../../hooks/useDebounce';
 import { isLiked } from '../../utils/products';
@@ -25,7 +23,6 @@ export function App() {
     api.search(debounceSearchQuery)
       .then((dataSearch) => {
         setCards(dataSearch);
-        // console.log(data);
       })
   }
 

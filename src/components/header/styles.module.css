@@ -2,6 +2,7 @@
   width: 100%;
   background-color: #fed700;
   padding: 12px;
+  position: relative;
 }
 
 .header__wrapper {
@@ -17,4 +18,30 @@
     align-items: stretch;
     gap: 20px;
   }
+}
+
+.login {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  width: 150px;
+  background-color: white;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 0px 10px;
+}
+
+.email {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  right: 10px;
+  top: 30px;
+  width: 180px;
+  background-color: white;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 0px 10px;
 }
