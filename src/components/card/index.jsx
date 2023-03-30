@@ -1,10 +1,15 @@
-import cn from 'classnames'
-import './style.css';
-import {ReactComponent as LikeIcon} from '../../images/save.svg';
-import { isLiked } from '../../utils/products';
+import cn from 'classnames';
 
+import "./styles.css";
+import { ReactComponent as LikeIcon } from "../../images/save.svg";
+import { calcDiscountPrice, isLiked } from '../../utils/products';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../../contexts/current-user-context';
+import { CardsContext } from '../../contexts/card-context';
 
-export function Card({  name,
+export function Card({
+  name,
   price,
   discount,
   wight,
@@ -12,22 +17,24 @@ export function Card({  name,
   pictures,
   tags,
   likes,
-  onProductLike,
   _id,
-  currentUser,
-  ...props}) {
- 
-  const discount_price = Math.round(price - (price * discount) / 100);
+  ...props
+}) {
+  const discount_price = calcDiscountPrice(price, discount)
+   
+  const { currentUser }  = useContext(UserContext);
+  const { handleLike: onProductLike }  = useContext(CardsContext)
 
   const like = isLiked(likes, currentUser?._id)
 
   function handleClickButtonLike() {
+    console.log(likes);
     onProductLike({ likes, _id })
   }
 
   return (
     <article className="card">
-        <div className="card__sticky card__sticky_type_top-left">
+      <div className="card__sticky card__sticky_type_top-left">
         {discount !== 0 && (
           <span className="card__discount">{`-${discount}%`}</span>
         )}
@@ -37,17 +44,17 @@ export function Card({  name,
           </span>
         )
         )}
-        </div>
-        <div className="card__sticky card__sticky_type_top-right">
+      </div>
+      <div className="card__sticky card__sticky_type_top-right">
         <button className={cn('card__favorite', { 'card__favorite_is-active': like })} onClick={handleClickButtonLike}>
           <LikeIcon className="card__favorite-icon" />
-          
+          {/* <img src={likeIcon} alt="" className="card__favorite-icon" /> */}
         </button>
-        </div>
+      </div>
 
-        <a href="#" className="card__link">
-          <img src={pictures} alt={name} className="card__image" />
-          <div className="card__desc">
+      <Link to={`/product/${_id}`} className="card__link">
+        <img src={pictures} alt={name} className="card__image" />
+        <div className="card__desc">
           {discount !== 0 ? (
             <>
               <span className="card__old-price">{price}&nbsp;₽</span>
@@ -61,8 +68,10 @@ export function Card({  name,
           <span className="card__wight">{wight}</span>
           <h3 className="card__name">{name}</h3>
         </div>
+      </Link>
+      <a href="#" className="card__cart btn btn_type_primary">
+        В корзину
       </a>
-        <a href="#" className="card__cart btn btn_type_primary">В корзину</a>
     </article>
   );
 }

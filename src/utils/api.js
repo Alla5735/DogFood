@@ -52,6 +52,17 @@ class Api {
         })
             .then(this.#onResponse)
     }
+    
+    getProductById(idProduct) {
+        return fetch(`${this.#baseurl}/products/${idProduct}`, {
+            headers: this.#headers
+        })
+            .then(this.#onResponse)
+    }
+
+    getInfoProduct(idProduct) {
+        return Promise.all([this.getProductById(idProduct), this.getUserInfo()])
+    }
 }
 
 
@@ -62,6 +73,5 @@ const api = new Api({
         authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDEwN2UwOWFhMzk3MTIxODM4ZjI4ZTQiLCJncm91cCI6Imdyb3VwLTExIiwiaWF0IjoxNjc4ODAyNDQ2LCJleHAiOjE3MTAzMzg0NDZ9.BSjB0YkM8SKyUHfrK25KEHQsmBpJi8zCuhddzkP4eT8'
     }
 })
-
 
 export default api;    
